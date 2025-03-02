@@ -1,12 +1,45 @@
 #include <Windows.h>
+#include <string>
+#include <sstream>
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
-	case WM_CLOSE:
-		PostQuitMessage(69);
-		break;
+		case WM_CLOSE:
+			PostQuitMessage(69);
+			break;
+
+		case WM_KEYDOWN:
+			if (wParam == 'F')
+			{
+				SetWindowText(hWnd, L"Respects");
+
+			}
+			break;
+
+		case WM_KEYUP:
+			if (wParam == 'F')
+			{
+				SetWindowText(hWnd, L"Dangerfield");
+			}
+			break;
+
+		case WM_CHAR:
+		{
+			static std::wstring title;
+			title.push_back((wchar_t)(wParam));
+			SetWindowText(hWnd, (LPCWSTR)title.c_str());
+		}
+			break;
+		case WM_LBUTTONDOWN:
+		{
+			POINTS pt = MAKEPOINTS(lParam);
+			std::wostringstream oss;
+			oss << "(" << pt.x << ", " << pt.y << ")";
+			SetWindowText(hWnd, (LPCWSTR)oss.str().c_str());
+		}
+
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
