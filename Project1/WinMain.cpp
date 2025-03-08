@@ -13,6 +13,12 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+
+			if (wnd.kbd.KeyIsPressed(VK_SPACE))
+			{
+				MessageBox(nullptr, L"Something Happon!", L"Space key pressed", MB_OK | MB_ICONEXCLAMATION);
+			}
+
 		}
 
 		if (gResult == -1)
